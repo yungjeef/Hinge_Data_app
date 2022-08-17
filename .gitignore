@@ -3,3 +3,7 @@ hinge_jeff
 
 # Folders
 /hinge_data
+
+# Python
+*__pycache__*
+*.pyc
