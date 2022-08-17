@@ -51,9 +51,37 @@ def uploadFiles():
 
     if matches_file_str.get():
         matches_output_str = process_matches(matches_file_str.get())
+        if matches_output_str == 0:
+            matches_results_str = "matches.json is incorrectly formatted. Please double check the file."
+            matches_results_color = "red"
+        elif matches_output_str == 1:
+            matches_results_str = "matches.json did not need to be modified"
+            matches_results_color = "red"
+        else:
+            matches_results_str = "matches-modified.json has been created and in same directory as matches.json. All chat history has been removed."
+            matches_results_color = "green"
+        Label(
+            ws, 
+            text=matches_results_str, 
+            foreground=matches_results_color).grid(row=11, columnspan=3, pady=10, padx=10
+        )
 
     if user_file_str.get():
         user_output_str = process_user(user_file_str.get())
+        if user_output_str == 0:
+            user_results_str = "user.json is incorrectly formatted. Please double check the file."
+            user_results_color = "red"
+        elif user_output_str == 1:
+            user_results_str = "user.json did not need to be modified"
+            user_results_color = "red"
+        else:
+            user_results_str = "user-modified.json has been created and in same directory as user.json. All personal information has been removed."
+            user_results_color = "green"
+        Label(
+            ws, 
+            text=user_results_str, 
+            foreground=user_results_color).grid(row=12, columnspan=3, pady=10, padx=10
+        )
 
 # ==========================================================
 # Tkinter App Widget Section
