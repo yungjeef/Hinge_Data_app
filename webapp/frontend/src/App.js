@@ -57,8 +57,11 @@ function App() {
               <div class="picture-row">
                 <img src={require('./images/all_3.png')}></img>
               </div>
-              <p><b>Sign in</b> to discover the statistics behind your online dating. 
-                <pre></pre><b>Scroll down</b> to see how the rest of the online dating community swipes.</p>
+              <p>
+                <b>Scroll down</b> to see how the rest of the online dating community swipes.
+                <pre></pre><b>Sign in</b> to discover your statistics in online dating and unlock more
+                  online dating analytics.
+                </p>
             </div>
             <div className="Login-section">
               <Button variant="contained" color='secondary' size='large'>Sign in with Google</Button>

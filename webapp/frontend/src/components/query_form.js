@@ -10,139 +10,196 @@ import Button from '@mui/material/Button';
 
 
 export default function SelectVariants() {
-  const [age, setAge] = React.useState('');
-  const handleChange = (event) => {
-    setAge(event.target.value);
-  };
 
-  // Dating app choice
-  const [dating_app, setDatingApp] = React.useState('');
-  const handleDatingAppSelection = (event) => {
-    setDatingApp(event.target.value);
-  };
+    function checkNumber(x) {
+        if(typeof x == 'number' && !isNaN(x)) {
+            // check if it is an integer
+            if(Number.isInteger(x)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
 
-  // Dating app statistic metric
-  const [metric, setMetric] = React.useState('');
-  const handleMetric = (event) => {
-    setMetric(event.target.value);
-  };
+        return false;
+    }
 
-  // Total match number
-  const [total_matches, setTotalMatches] = React.useState('');
-  const handleTotalMatches = (event) => {
-    setTotalMatches(event.target.value);
-  };
+    // Dating app choice
+    const [dating_app, setDatingApp] = React.useState('');
+    const handleDatingAppSelection = (event) => {
+        setDatingApp(event.target.value);
+    };
 
-  // Match to Like ratio
-  const [swipe_ratio, setSwipeRatio] = React.useState('');
-  const handleSwipeRatio = (event) => {
-    setSwipeRatio(event.target.value);
-  };
+    // Dating app statistic metric
+    const [metric, setMetric] = React.useState('');
+    const handleMetric = (event) => {
+        setMetric(event.target.value);
+    };
 
-  // Match per day
-  const [match_per_day, setMatchPerDay] = React.useState('');
-  const handleMatchPerDay = (event) => {
-    setMatchPerDay(event.target.value);
-  };
+    // Total match number
+    const [total_matches, setTotalMatches] = React.useState('');
+    const handleTotalMatches = (event) => {
+        const new_total_matches = Number(event.target.value);
 
-  // Min age
-  const [min_age, setMinAge] = React.useState('');
-  const handleMinAge = (event) => {
-    setMinAge(event.target.value);
-  };
+        // Total matches can't be negative or a decimal
+        if(new_total_matches < 0 || !checkNumber(new_total_matches)) {
+            const total_matches_input = document.getElementById('total-matches-input');
+            total_matches_input.value = '';
+        }
+        setTotalMatches(event.target.value);
+    };
 
-  // Max age
-  const [max_age, setMaxAge] = React.useState('');
-  const handleMaxAge = (event) => {
-    setMaxAge(event.target.value);
-  };
+    // Match to Like ratio
+    const [swipe_ratio, setSwipeRatio] = React.useState('');
+    const handleSwipeRatio = (event) => {
+        const new_swipe_ratio = Number(event.target.value);
 
-  // Min feet
-  const [min_feet, setMinFeet] = React.useState('');
-  const handleMinFeet = (event) => {
-    setMinFeet(event.target.value);
-  };
+        // Impossible for Match ratio to be above 1
+        if(new_swipe_ratio > 1) {
+            const ratio_input = document.getElementById('ratio-input');
+            ratio_input.value = '';
+        }
+        setSwipeRatio(event.target.value);
+    };
 
-  // Min inches
-  const [min_inch, setMinInch] = React.useState('');
-  const handleMinInch = (event) => {
-    setMinInch(event.target.value);
-  };
+    // Match per day
+    const [match_per_day, setMatchPerDay] = React.useState('');
+    const handleMatchPerDay = (event) => {
+        const new_match_rate = Number(event.target.value);
 
-  // Max feet
-  const [max_feet, setMaxFeet] = React.useState('');
-  const handleMaxFeet = (event) => {
-    setMaxFeet(event.target.value);
-  };
+        // Match rate can't be negative
+        if(new_match_rate < 0) {
+            const match_day_input = document.getElementById('match-day-input');
+            match_day_input.value = '';
+        }
+        setMatchPerDay(event.target.value);
+    };
 
-  // Max inches
-  const [max_inch, setMaxInch] = React.useState('');
-  const handleMaxInch = (event) => {
-    setMaxInch(event.target.value);
-  };
+    // Min age
+    const [min_age, setMinAge] = React.useState('');
+    const handleMinAge = (event) => {
+        const new_age = Number(event.target.value);
 
-  // Gender
-  const [gender, setGender] = React.useState('');
-  const handleGender = (event) => {
-    setGender(event.target.value);
-  };
+        // Age can't be negative or decimal
+        if(new_age < 0 || !checkNumber(new_age)) {
+            const min_age_input = document.getElementById('min-age-input');
+            min_age_input.value = '';
+        }
+        setMinAge(event.target.value);
+    };
 
-  // Orientation
-  const [orientation, setOrientation] = React.useState('');
-  const handleOrientation = (event) => {
-    setOrientation(event.target.value);
-  };
+    // Max age
+    const [max_age, setMaxAge] = React.useState('');
+    const handleMaxAge = (event) => {
+        const new_age = Number(event.target.value);
 
-  // Ethnicity
-  const [ethnicity, setEthnicity] = React.useState('');
-  const handleEthnicity = (event) => {
-    setEthnicity(event.target.value);
-  };
+        // Age can't be negative or decimal
+        if(new_age < 0 || !checkNumber(new_age)) {
+            const max_age_input = document.getElementById('max-age-input');
+            max_age_input.value = '';
+        }
 
-  // Politics
-  const [politics, setPolitics] = React.useState('');
-  const handlePolitics = (event) => {
-    setPolitics(event.target.value);
-  };
+        setMaxAge(event.target.value);
+    };
 
-  // Religion
-  const [religion, setReligion] = React.useState('');
-  const handleReligion = (event) => {
-    setReligion(event.target.value);
-  };
+    // Min feet
+    const [min_feet, setMinFeet] = React.useState('');
+    const handleMinFeet = (event) => {
+        setMinFeet(event.target.value);
+    };
 
-  // Employer
-  const [employer, setEmployer] = React.useState('');
-  const handleEmployer = (event) => {
-    setEmployer(event.target.value);
-  };
+    // Min inches
+    const [min_inch, setMinInch] = React.useState('');
+    const handleMinInch = (event) => {
+        setMinInch(event.target.value);
+    };
 
-  // Education Level
-  const [education_level, setEducationLevel] = React.useState('');
-  const handleEducationLevel = (event) => {
-    setEducationLevel(event.target.value);
-  };
+    // Max feet
+    const [max_feet, setMaxFeet] = React.useState('');
+    const handleMaxFeet = (event) => {
+        setMaxFeet(event.target.value);
+    };
 
-  // School
-  const [school, setSchool] = React.useState('');
-  const handleSchool = (event) => {
-    setSchool(event.target.value);
-  };
+    // Max inches
+    const [max_inch, setMaxInch] = React.useState('');
+    const handleMaxInch = (event) => {
+        setMaxInch(event.target.value);
+    };
 
-  // Dating Goal
-  const [goal, setGoal] = React.useState('');
-  const handleGoal = (event) => {
-    setGoal(event.target.value);
-  };
+    // Gender
+    const [gender, setGender] = React.useState('');
+    const handleGender = (event) => {
+        setGender(event.target.value);
+    };
 
-  // Location
-  const [location, setLocation] = React.useState('');
-  const handleLocation = (event) => {
-    setLocation(event.target.value);
-  };
+    // Orientation
+    const [orientation, setOrientation] = React.useState('');
+    const handleOrientation = (event) => {
+        setOrientation(event.target.value);
+    };
 
-  let metric_input;
-  if(metric == 0) {
+    // Ethnicity
+    const [ethnicity, setEthnicity] = React.useState('');
+    const handleEthnicity = (event) => {
+        setEthnicity(event.target.value);
+    };
+
+    // Politics
+    const [politics, setPolitics] = React.useState('');
+    const handlePolitics = (event) => {
+        setPolitics(event.target.value);
+    };
+
+    // Religion
+    const [religion, setReligion] = React.useState('');
+    const handleReligion = (event) => {
+        setReligion(event.target.value);
+    };
+
+    // Employer
+    const [employer, setEmployer] = React.useState('');
+    const handleEmployer = (event) => {
+        setEmployer(event.target.value);
+    };
+
+    // Employer
+    const [job, setJob] = React.useState('');
+    const handleJob = (event) => {
+        setJob(event.target.value);
+    };
+
+    // Education Level
+    const [education_level, setEducationLevel] = React.useState('');
+    const handleEducationLevel = (event) => {
+        setEducationLevel(event.target.value);
+    };
+
+    // School
+    const [school, setSchool] = React.useState('');
+    const handleSchool = (event) => {
+        setSchool(event.target.value);
+    };
+
+    // Dating Goal
+    const [goal, setGoal] = React.useState('');
+    const handleGoal = (event) => {
+        setGoal(event.target.value);
+    };
+
+    // Location
+    const [location, setLocation] = React.useState('');
+    const handleLocation = (event) => {
+        setLocation(event.target.value);
+    };
+
+    // Workout
+    const [workout, setWorkout] = React.useState('');
+    const handleWorkout = (event) => {
+        setWorkout(event.target.value);
+    };
+
+    let metric_input;
+    if(metric == 0) {
     metric_input = 
         <TextField
             id="total-matches-input"
@@ -158,25 +215,27 @@ export default function SelectVariants() {
             value={total_matches}
             onChange={handleTotalMatches}
         />
-  } else if(metric == 1){
+    } else if(metric == 1){
     metric_input =
-        <TextField
-            id="ratio-input"
-            label="Your Match-to-Like Ratio"
-            type="number"
-            InputLabelProps={{
-                shrink: true,
-            }}
-            sx={{
-                label: {color: '#FF8000'},
-                input: { color: '#00CC00' }
-            }}
-            value={swipe_ratio}
-            onChange={handleSwipeRatio}
-        />
-            
+        <div>
+            <TextField
+                id="ratio-input"
+                label="Your Match-to-Like Ratio"
+                type="number"
+                InputLabelProps={{
+                    shrink: true,
+                }}
+                sx={{
+                    label: {color: '#FF8000'},
+                    input: { color: '#00CC00' }
+                }}
+                value={swipe_ratio}
+                onChange={handleSwipeRatio}
+            />
+            <p style={{fontSize: '14px'}}>The match-to-like ratio must be between 0 and 1</p>
+        </div>    
         
-  } else if(metric == 2) {
+    } else if(metric == 2) {
     metric_input =
         <TextField
             id="match-day-input"
@@ -192,7 +251,13 @@ export default function SelectVariants() {
             value={match_per_day}
             onChange={handleMatchPerDay}
         />
-  }
+    }
+
+
+    // On button click, this will start it all!
+    function handleSubmit(event) {
+
+    }
 
   return (
     <div className='query_form_body' style={{backgroundColor:"#282c34"}}>
@@ -535,6 +600,20 @@ export default function SelectVariants() {
             </Select>
         </FormControl>
         <FormControl variant="standard" sx={{ m: 1, minWidth: 120, backgroundColor:"#282c34", width:"25%"}}>
+            <InputLabel id="demo-simple-select-standard-label" sx={{ color:"#FF8000"}}>Job</InputLabel>
+            <Select
+                labelId="job-select"
+                id="job-select"
+                value={job}
+                onChange={handleJob}
+                label="job-select"
+                sx={{ color:"#00CC00"}}
+                >
+                <MenuItem value={0}>Engineer</MenuItem>
+                <MenuItem value={1}>Consultant</MenuItem>
+            </Select>
+        </FormControl>
+        <FormControl variant="standard" sx={{ m: 1, minWidth: 120, backgroundColor:"#282c34", width:"25%"}}>
             <InputLabel id="demo-simple-select-standard-label" sx={{ color:"#FF8000"}}>Location</InputLabel>
             <Select
                 labelId="location-select"
@@ -547,6 +626,23 @@ export default function SelectVariants() {
                 <MenuItem value={0}>Los Angeles, CA</MenuItem>
                 <MenuItem value={1}>Bay Area, CA</MenuItem>
                 <MenuItem value={2}>Raleigh, NC</MenuItem>
+            </Select>
+        </FormControl>
+        <FormControl variant="standard" sx={{ m: 1, minWidth: 120, backgroundColor:"#282c34", width:"25%"}}>
+            <InputLabel id="demo-simple-select-standard-label" sx={{ color:"#FF8000"}}>Do you lift bro?</InputLabel>
+            <Select
+                labelId="workout-select"
+                id="workout-select"
+                value={workout}
+                onChange={handleWorkout}
+                label="workout-select"
+                sx={{ color:"#00CC00"}}
+                >
+                <MenuItem value={0}>Never</MenuItem>
+                <MenuItem value={1}>Occasionally</MenuItem>
+                <MenuItem value={2}>So so</MenuItem>
+                <MenuItem value={3}>Frequently</MenuItem>
+                <MenuItem value={4}>Bro are you juicing?</MenuItem>
             </Select>
         </FormControl>
         <br></br>
