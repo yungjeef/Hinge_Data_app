@@ -8,7 +8,11 @@ import { useCallback } from "react";
 import Button from '@mui/material/Button';
 import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import FormSelect from './components/query_form.js'
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 
 function App() {
@@ -36,66 +40,77 @@ function App() {
   const id = open ? 'simple-popover' : undefined;
 
   return (
-    <div className="App" style={{ position: 'relative', overflow: "hidden" }}>
-      
-      <Particles
-        id="tsparticles"
-        init={particlesInit}
-        loaded={particlesLoaded}
-        options={particlesConfig}
-      />
-      <header className="App-header">
-        <div style={{display: 'flex'}}>
+    <React.Fragment>
+      <div className="App" style={{ position: 'relative', overflow: "hidden" }}>
+        
+        <Particles
+          id="tsparticles"
+          init={particlesInit}
+          loaded={particlesLoaded}
+          options={particlesConfig}
+        />
+        <header className="App-header">
+          <div style={{display: 'flex'}}>
+            <div className="Header-description">
+              <h1>Dating App Data</h1>
+              <h3>Discover your dating data</h3>
+              <div class="picture-row">
+                <img src={require('./images/all_3.png')}></img>
+              </div>
+              <p><b>Sign in</b> to discover the statistics behind your online dating. 
+                <pre></pre><b>Scroll down</b> to see how the rest of the online dating community swipes.</p>
+            </div>
+            <div className="Login-section">
+              <Button variant="contained" color='secondary' size='large'>Sign in with Google</Button>
+              <pre></pre>
+              <div>
+                <Accordion sx={{backgroundColor: "#282c34"}}>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel1a-content"
+                    id="panel1a-header"
+                  >
+                    <Typography sx={{color: "white"}}>Why is sign-in required?</Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Typography sx={{color: "white"}}>
+                      Google Sign-on is required to prevent bots and 
+                      spammers from uploading fake or redundant data.
+                    </Typography>
+                  </AccordionDetails>
+                </Accordion>
+              </div>
+            </div>
+          </div>
+          <div className='bottom-pic'>
+            <div className='bottom-pic-column'>
+              <img src={require('./images/online_dating.png')} style={{width: '250px', height:'auto'}}></img>
+            </div>
+            <div className='bottom-pic-column'>
+              <img src={require('./images/right-arrow-icon-114837-11.png')} style={{width: '250px', height:'auto'}}></img>
+            </div>
+            <div className='bottom-pic-column'>
+              <img src={require('./images/data.png')} style={{width: '250px', height:'auto'}}></img>
+            </div>
+          </div>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
           <div className="Header-description">
-            <h1>Dating App Data</h1>
-            <h3>Discover your dating data</h3>
-            <div class="picture-row">
-              <img src={require('./images/all_3.png')}></img>
-            </div>
-            <p><b>Sign in.</b> Find the statistics behind your online dating. 
-              <pre></pre>See how the rest of the online dating community does.</p>
+            <h3>Where do you rank amongst other dating app users?</h3>
+            <p>Fill the form below to do a live search and find out.</p>
           </div>
-          <div className="Login-section">
-            <Button variant="contained" color='secondary' size='large'>Sign in with Google</Button>
-            <pre></pre>
-            <div class="login-dropdown">
-              <Button aria-describedby={id} variant="contained" onClick={handleClick} color='info'>
-                Why is sign-in required?
-              </Button>
-              <Popover
-                id={id}
-                open={open}
-                anchorEl={anchorEl}
-                onClose={handleClose}
-                anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'left',
-                }}
-              >
-                <Typography sx={{ p: 2 }}>
-                  Google Sign-on is required to <br></br>
-                  prevent bots and spammers from <br></br>
-                  uploading fake or redundant data.
-                </Typography>
-              </Popover>
-            </div>
-          </div>
-        </div>
-        <div className='bottom-pic'>
-          <div className='bottom-pic-column'>
-            <img src={require('./images/online_dating.png')} style={{width: '250px', height:'auto'}}></img>
-          </div>
-          <div className='bottom-pic-column'>
-            <img src={require('./images/right-arrow-icon-114837-11.png')} style={{width: '250px', height:'auto'}}></img>
-          </div>
-          <div className='bottom-pic-column'>
-            <img src={require('./images/data.png')} style={{width: '250px', height:'auto'}}></img>
-          </div>
-        </div>
-      </header>
-    </div>
-    
-
+        </header>
+      </div>
+      <FormSelect/>
+      
+    </React.Fragment>
   );
 }
 
