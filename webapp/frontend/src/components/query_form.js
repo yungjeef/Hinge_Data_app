@@ -1,4 +1,5 @@
 import * as React from 'react';
+import ReactDOM from 'react-dom/client';
 import '../css/query_form.css'
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -105,24 +106,53 @@ export default function SelectVariants() {
     // Min feet
     const [min_feet, setMinFeet] = React.useState('');
     const handleMinFeet = (event) => {
+        const new_min_feet = Number(event.target.value);
+
+        // Height can't be negative or decimal
+        if(new_min_feet < 0 || !checkNumber(new_min_feet) || new_min_feet > 8) {
+            const min_feet_input = document.getElementById('min-feet-input');
+            min_feet_input.value = '';
+        }
+
         setMinFeet(event.target.value);
     };
 
     // Min inches
     const [min_inch, setMinInch] = React.useState('');
     const handleMinInch = (event) => {
+        const new_min_inch = Number(event.target.value);
+
+        // Height can't be negative or decimal
+        if(new_min_inch < 0 || !checkNumber(new_min_inch) || new_min_inch > 11) {
+            const min_inch_input = document.getElementById('min-inch-input');
+            min_inch_input.value = '';
+        }
         setMinInch(event.target.value);
     };
 
     // Max feet
     const [max_feet, setMaxFeet] = React.useState('');
     const handleMaxFeet = (event) => {
+        const new_max_feet = Number(event.target.value);
+
+        // Height can't be negative or decimal
+        if(new_max_feet < 0 || !checkNumber(new_max_feet) || new_max_feet > 8) {
+            const max_feet_input = document.getElementById('max-feet-input');
+            max_feet_input.value = '';
+        }
         setMaxFeet(event.target.value);
     };
 
     // Max inches
     const [max_inch, setMaxInch] = React.useState('');
     const handleMaxInch = (event) => {
+        const new_max_inch = Number(event.target.value);
+
+        // Height can't be negative or decimal
+        if(new_max_inch < 0 || !checkNumber(new_max_inch) || new_max_inch > 11) {
+            const max_inch_input = document.getElementById('max-inch-input');
+            max_inch_input.value = '';
+        }
         setMaxInch(event.target.value);
     };
 
@@ -200,27 +230,10 @@ export default function SelectVariants() {
 
     let metric_input;
     if(metric == 0) {
-    metric_input = 
-        <TextField
-            id="total-matches-input"
-            label="Your Total Number of Matches"
-            type="number"
-            InputLabelProps={{
-                shrink: true,
-            }}
-            sx={{
-                label: {color: '#FF8000'},
-                input: { color: '#00CC00' }
-            }}
-            value={total_matches}
-            onChange={handleTotalMatches}
-        />
-    } else if(metric == 1){
-    metric_input =
-        <div>
+        metric_input = 
             <TextField
-                id="ratio-input"
-                label="Your Match-to-Like Ratio"
+                id="total-matches-input"
+                label="Your Total Number of Matches"
                 type="number"
                 InputLabelProps={{
                     shrink: true,
@@ -229,34 +242,140 @@ export default function SelectVariants() {
                     label: {color: '#FF8000'},
                     input: { color: '#00CC00' }
                 }}
-                value={swipe_ratio}
-                onChange={handleSwipeRatio}
+                value={total_matches}
+                onChange={handleTotalMatches}
             />
-            <p style={{fontSize: '14px'}}>The match-to-like ratio must be between 0 and 1</p>
-        </div>    
+    } else if(metric == 1){
+        metric_input =
+            <div>
+                <TextField
+                    id="ratio-input"
+                    label="Your Match-to-Like Ratio"
+                    type="number"
+                    InputLabelProps={{
+                        shrink: true,
+                    }}
+                    sx={{
+                        label: {color: '#FF8000'},
+                        input: { color: '#00CC00' }
+                    }}
+                    value={swipe_ratio}
+                    onChange={handleSwipeRatio}
+                />
+                <p style={{fontSize: '14px'}}>The match-to-like ratio must be between 0 and 1</p>
+            </div>    
         
     } else if(metric == 2) {
-    metric_input =
-        <TextField
-            id="match-day-input"
-            label="Your Matches per day"
-            type="number"
-            InputLabelProps={{
-                shrink: true,
-            }}
-            sx={{
-                label: {color: '#FF8000'},
-                input: { color: '#00CC00' }
-            }}
-            value={match_per_day}
-            onChange={handleMatchPerDay}
-        />
+        metric_input =
+            <TextField
+                id="match-day-input"
+                label="Your Matches per day"
+                type="number"
+                InputLabelProps={{
+                    shrink: true,
+                }}
+                sx={{
+                    label: {color: '#FF8000'},
+                    input: { color: '#00CC00' }
+                }}
+                value={match_per_day}
+                onChange={handleMatchPerDay}
+            />
     }
 
+    function generate_submission_form() {
+        
+        // Calculate height, convert to inches
+        let actual_min_height = 0;
+        let actual_max_height = 0;
+
+        if(min_feet != '') {
+            actual_min_height = Number(min_feet) * 12;
+            if(min_inch != '') {
+                actual_min_height = actual_min_height + Number(min_inch);
+            }
+        }
+
+        if(max_feet != '') {
+            actual_max_height = Number(max_feet) * 12;
+            if(max_inch != '') {
+                actual_max_height = actual_max_height + Number(max_inch);
+            }
+        }
+
+        if(actual_min_height > actual_max_height) {
+            let temp = actual_max_height;
+            actual_max_height = actual_min_height;
+            actual_min_height = temp;
+        }
+
+        // Determine if min age is greater than max age
+        let actual_min_age = 0;
+        let actual_max_age = 0;
+        if(min_age != '' && max_age != '') {
+            if(Number(min_age) > Number(max_age)) {
+                actual_max_age = Number(min_age);
+                actual_min_age = Number(max_age);
+            } else {
+                actual_min_age = Number(min_age);
+                actual_max_age = Number(max_age);
+            }
+        }
+        const submission_data = {
+            'dating_app': dating_app,
+            'metric': metric,
+            'total_matches': total_matches,
+            'swipe_ratio': swipe_ratio,
+            'match_per_day': match_per_day,
+            'min_age': actual_min_age,
+            'max_age': actual_max_age,
+            'min_height': actual_min_height,
+            'max_height': actual_max_height,
+            'gender': gender,
+            'orientation': orientation,
+            'ethnicity': ethnicity,
+            'politics': politics,
+            'religion': religion,
+            'employer': employer,
+            'job': job,
+            'education_level': education_level,
+            'school': school,
+            'goal': goal,
+            'location': location,
+            'workout': workout,
+        }
+
+        return submission_data
+    }
 
     // On button click, this will start it all!
-    function handleSubmit(event) {
 
+    // Submitted
+    let submit = false;
+
+    function handleSubmit() {
+        submit = true;
+        const submission_form = generate_submission_form();
+
+        if(submission_form.dating_app == "") {
+            alert("Dating app needs to be specified.")
+        } else if(submission_form.metric == 1 && submission_form.swipe_ratio == "") {
+            alert("Match Ratio metric must be specified.");
+        } else if(submission_form.metric == 2 && submission_form.match_per_day == "") {
+            alert("Match per day metric must be specified.");
+        } else if(submission_form.metric == 0 && submission_form.total_matches == "") {
+            alert("Total matches metric must be specified.");
+        } else {
+
+        }
+    }    
+
+    const renderMessage = () => {
+        if(submit == false) {
+            return <p></p>
+        } else {
+            return <p>Hell</p>
+        }
     }
 
   return (
@@ -417,7 +536,7 @@ export default function SelectVariants() {
         </div>
         <div className='height_subsection'>
             <TextField
-                id="min-age-input"
+                id="min-feet-input"
                 label="Feet"
                 type="number"
                 InputLabelProps={{
@@ -433,7 +552,7 @@ export default function SelectVariants() {
         </div>
         <div className='height_subsection'>
             <TextField
-                id="min-age-input"
+                id="min-inch-input"
                 label="Inches"
                 type="number"
                 InputLabelProps={{
@@ -452,7 +571,7 @@ export default function SelectVariants() {
         </div>
         <div className='height_subsection'>
             <TextField
-                id="max-age-input"
+                id="max-feet-input"
                 label="Feet"
                 type="number"
                 InputLabelProps={{
@@ -468,7 +587,7 @@ export default function SelectVariants() {
         </div>
         <div className='height_subsection'>
             <TextField
-                id="max-age-input"
+                id="max-inch-input"
                 label="Inches"
                 type="number"
                 InputLabelProps={{
@@ -650,7 +769,14 @@ export default function SelectVariants() {
         <br></br>
         <br></br>
         <br></br>
-        <Button variant="contained" color='secondary' size='large'>Fuck Around and Find Out</Button>
+        <Button 
+            variant="contained"
+            color='secondary' 
+            size='large' 
+            onClick={handleSubmit}
+            >
+                Fuck Around and Find Out
+        </Button>
       </div>
         <br></br>
         <br></br>
@@ -670,6 +796,7 @@ export default function SelectVariants() {
         <br></br>
         <br></br>
         <br></br>
+        
     </div>
   );
 }
