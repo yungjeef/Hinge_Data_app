@@ -8,7 +8,7 @@ import Select from '@mui/material/Select';
 import { sizeHeight } from '@mui/system';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-
+import SearchResults from './search_results.js';
 
 export default function SelectVariants() {
 
@@ -56,7 +56,7 @@ export default function SelectVariants() {
         const new_swipe_ratio = Number(event.target.value);
 
         // Impossible for Match ratio to be above 1
-        if(new_swipe_ratio > 1) {
+        if(new_swipe_ratio > 1 || new_swipe_ratio < 0) {
             const ratio_input = document.getElementById('ratio-input');
             ratio_input.value = '';
         }
@@ -320,7 +320,12 @@ export default function SelectVariants() {
                 actual_min_age = Number(min_age);
                 actual_max_age = Number(max_age);
             }
+        } else if(min_age != '') {
+            actual_min_age = Number(min_age);
+        } else if(max_age != '') {
+            actual_max_age = Number(max_age);
         }
+
         const submission_data = {
             'dating_app': dating_app,
             'metric': metric,
@@ -348,13 +353,11 @@ export default function SelectVariants() {
         return submission_data
     }
 
+    const [displayResult, setDisplayResult] = React.useState(false);
+    const [submission_data, setSubmissionData] = React.useState(null);
+
     // On button click, this will start it all!
-
-    // Submitted
-    let submit = false;
-
     function handleSubmit() {
-        submit = true;
         const submission_form = generate_submission_form();
 
         if(submission_form.dating_app == "") {
@@ -366,17 +369,11 @@ export default function SelectVariants() {
         } else if(submission_form.metric == 0 && submission_form.total_matches == "") {
             alert("Total matches metric must be specified.");
         } else {
-
+            // Submit using Axios to backend
+            console.log(submission_form);
+            setSubmissionData(submission_form);
         }
     }    
-
-    const renderMessage = () => {
-        if(submit == false) {
-            return <p></p>
-        } else {
-            return <p>Hell</p>
-        }
-    }
 
   return (
     <div className='query_form_body' style={{backgroundColor:"#282c34"}}>
@@ -439,9 +436,9 @@ export default function SelectVariants() {
           label="gender-select"
           sx={{ color:"#00CC00"}}
         >
-          <MenuItem value={0}>Male</MenuItem>
-          <MenuItem value={1}>Female</MenuItem>
-          <MenuItem value={2}>Other</MenuItem>
+          <MenuItem value={"Male"}>Male</MenuItem>
+          <MenuItem value={"Female"}>Female</MenuItem>
+          <MenuItem value={"Other"}>Other</MenuItem>
           <MenuItem value={""}><b>Unselect</b></MenuItem>
         </Select>
       </FormControl>
@@ -457,8 +454,8 @@ export default function SelectVariants() {
           label="orientation-select"
           sx={{ color:"#00CC00"}}
         >
-          <MenuItem value={0}>Straight</MenuItem>
-          <MenuItem value={1}>LGBT</MenuItem>
+          <MenuItem value={"Straight"}>Straight</MenuItem>
+          <MenuItem value={"LGBT"}>LGBT</MenuItem>
           <MenuItem value={""}><b>Unselect</b></MenuItem>
         </Select>
       </FormControl>
@@ -474,10 +471,10 @@ export default function SelectVariants() {
           label="dating-goal-select"
           sx={{ color:"#00CC00"}}
         >
-          <MenuItem value={0}>Marriage</MenuItem>
-          <MenuItem value={1}>Long-term relationship</MenuItem>
-          <MenuItem value={2}>Hook up</MenuItem>
-          <MenuItem value={3}>Figuring it out</MenuItem>
+          <MenuItem value={"Marriage"}>Marriage</MenuItem>
+          <MenuItem value={"Long-term relationship"}>Long-term relationship</MenuItem>
+          <MenuItem value={"Hook up"}>Hook up</MenuItem>
+          <MenuItem value={"Figuring it out"}>Figuring it out</MenuItem>
           <MenuItem value={""}><b>Unselect</b></MenuItem>
         </Select>
       </FormControl>
@@ -641,11 +638,11 @@ export default function SelectVariants() {
                 label="politics-select"
                 sx={{ color:"#00CC00"}}
                 >
-                <MenuItem value={0}>Liberal</MenuItem>
-                <MenuItem value={1}>Moderate</MenuItem>
-                <MenuItem value={2}>Conservative</MenuItem>
-                <MenuItem value={3}>Not Political</MenuItem>
-                <MenuItem value={4}>Other</MenuItem>
+                <MenuItem value={"Liberal"}>Liberal</MenuItem>
+                <MenuItem value={"Moderate"}>Moderate</MenuItem>
+                <MenuItem value={"Conservative"}>Conservative</MenuItem>
+                <MenuItem value={"Not Political"}>Not Political</MenuItem>
+                <MenuItem value={"Other"}>Other</MenuItem>
                 <MenuItem value={""}><b>Unselect</b></MenuItem>
             </Select>
         </FormControl>
@@ -683,9 +680,9 @@ export default function SelectVariants() {
                 label="education-level-select"
                 sx={{ color:"#00CC00"}}
                 >
-                <MenuItem value={0}>High School</MenuItem>
-                <MenuItem value={1}>Undergrad</MenuItem>
-                <MenuItem value={2}>Postgrad</MenuItem>
+                <MenuItem value={"High School"}>High School</MenuItem>
+                <MenuItem value={"Undergrad"}>Undergrad</MenuItem>
+                <MenuItem value={"Postgrad"}>Postgrad</MenuItem>
                 <MenuItem value={""}><b>Unselect</b></MenuItem>
             </Select>
         </FormControl>
@@ -699,9 +696,10 @@ export default function SelectVariants() {
                 label="school-select"
                 sx={{ color:"#00CC00"}}
                 >
-                <MenuItem value={0}>UNC Chapel Hill</MenuItem>
-                <MenuItem value={1}>NC State</MenuItem>
-                <MenuItem value={2}>UC Berkeley</MenuItem>
+                <MenuItem value={"UNC Chapel Hill"}>UNC Chapel Hill</MenuItem>
+                <MenuItem value={"NC State"}>NC State</MenuItem>
+                <MenuItem value={"UC Berkeley"}>UC Berkeley</MenuItem>
+                <MenuItem value={""}><b>Unselect</b></MenuItem>
             </Select>
         </FormControl>
         <FormControl variant="standard" sx={{ m: 1, minWidth: 120, backgroundColor:"#282c34", width:"25%"}}>
@@ -714,8 +712,9 @@ export default function SelectVariants() {
                 label="employer-select"
                 sx={{ color:"#00CC00"}}
                 >
-                <MenuItem value={0}>Google</MenuItem>
-                <MenuItem value={1}>Delta Force</MenuItem>
+                <MenuItem value={"Google"}>Google</MenuItem>
+                <MenuItem value={"Delta Force"}>Delta Force</MenuItem>
+                <MenuItem value={""}><b>Unselect</b></MenuItem>
             </Select>
         </FormControl>
         <FormControl variant="standard" sx={{ m: 1, minWidth: 120, backgroundColor:"#282c34", width:"25%"}}>
@@ -728,8 +727,9 @@ export default function SelectVariants() {
                 label="job-select"
                 sx={{ color:"#00CC00"}}
                 >
-                <MenuItem value={0}>Engineer</MenuItem>
-                <MenuItem value={1}>Consultant</MenuItem>
+                <MenuItem value={"Engineer"}>Engineer</MenuItem>
+                <MenuItem value={"Consultant"}>Consultant</MenuItem>
+                <MenuItem value={""}><b>Unselect</b></MenuItem>
             </Select>
         </FormControl>
         <FormControl variant="standard" sx={{ m: 1, minWidth: 120, backgroundColor:"#282c34", width:"25%"}}>
@@ -742,9 +742,10 @@ export default function SelectVariants() {
                 label="location-select"
                 sx={{ color:"#00CC00"}}
                 >
-                <MenuItem value={0}>Los Angeles, CA</MenuItem>
-                <MenuItem value={1}>Bay Area, CA</MenuItem>
-                <MenuItem value={2}>Raleigh, NC</MenuItem>
+                <MenuItem value={"Los Angeles, CA"}>Los Angeles, CA</MenuItem>
+                <MenuItem value={"Bay Area, CA"}>Bay Area, CA</MenuItem>
+                <MenuItem value={"Raleigh, NC"}>Raleigh, NC</MenuItem>
+                <MenuItem value={""}><b>Unselect</b></MenuItem>
             </Select>
         </FormControl>
         <FormControl variant="standard" sx={{ m: 1, minWidth: 120, backgroundColor:"#282c34", width:"25%"}}>
@@ -757,11 +758,12 @@ export default function SelectVariants() {
                 label="workout-select"
                 sx={{ color:"#00CC00"}}
                 >
-                <MenuItem value={0}>Never</MenuItem>
-                <MenuItem value={1}>Occasionally</MenuItem>
-                <MenuItem value={2}>So so</MenuItem>
-                <MenuItem value={3}>Frequently</MenuItem>
-                <MenuItem value={4}>Bro are you juicing?</MenuItem>
+                <MenuItem value={"Never works out"}>Never</MenuItem>
+                <MenuItem value={"Occasionally works out"}>Occasionally</MenuItem>
+                <MenuItem value={"Average works out"}>So so</MenuItem>
+                <MenuItem value={"Frequently works out"}>Frequently</MenuItem>
+                <MenuItem value={"Definitely juices"}>Bro are you juicing?</MenuItem>
+                <MenuItem value={""}><b>Unselect</b></MenuItem>
             </Select>
         </FormControl>
         <br></br>
@@ -775,7 +777,7 @@ export default function SelectVariants() {
             size='large' 
             onClick={handleSubmit}
             >
-                Fuck Around and Find Out
+                Play Around and Find Out
         </Button>
       </div>
         <br></br>
@@ -796,7 +798,10 @@ export default function SelectVariants() {
         <br></br>
         <br></br>
         <br></br>
-        
+        <SearchResults results_data = {submission_data}/>
+        <br></br>
+        <br></br>
+        <br></br>
     </div>
   );
 }
