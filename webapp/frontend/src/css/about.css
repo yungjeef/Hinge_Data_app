@@ -1,0 +1,23 @@
+span {
+    color: #FF8000;
+}
+
+.about-div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 1.5%;
+    font-size: 25px;
+}
+
+.about-div-column1 {
+    float: left;
+    flex-basis: 40%;
+    padding: 2%;
+}
+
+.about-div-column2 {
+    float: left;
+    padding-left: 20px;
+    text-align: left;
+}

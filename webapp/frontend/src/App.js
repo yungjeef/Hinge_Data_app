@@ -17,6 +17,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {useEffect, useState} from 'react';
 import jwt_decode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
+import Navbar from "./components/top_nav_bar";
 
 function App() {
 
@@ -31,16 +32,6 @@ function App() {
         await console.log(container);
     }, []);
 
-    const [anchorEl, setAnchorEl] = React.useState(null);
-
-    const handleClick = (event) => {
-      setAnchorEl(event.currentTarget);
-    };
-
-    const handleClose = () => {
-      setAnchorEl(null);
-    };
-
     return (
       <React.Fragment>
         <div className='app'>
@@ -53,6 +44,7 @@ function App() {
                     loaded={particlesLoaded}
                     options={particlesConfig}
                   />
+                  <Navbar/>
                   <header className="App-header">
                     <div style={{display: 'flex'}}>
                       <div className="Header-description">
@@ -62,7 +54,7 @@ function App() {
                           <img src={require('./images/all_3.png')}></img>
                         </div>
                         <p>
-                          <b>Scroll down</b> to see how the rest of the online dating community swipes.
+                        <span class="name"><b>Scroll down</b></span> to see how the rest of the online dating community swipes.
                           <pre></pre>Upload and discover your statistics in online dating. Browse around to find more
                             online dating analytics.
                           </p>
@@ -76,35 +68,30 @@ function App() {
                             </AccordionSummary>
                             <AccordionDetails>
                               <Typography sx={{color: "#00CC00"}}>
-                                <li><font color="FF8000"><b>Your historic total number of matches </b></font> 
+                                <font color="FF8000"><b>Your historic total number of matches </b></font> 
                                   <br></br>
                                   Total number of Hinge matches ever, including from people 
                                   who unmatched or deleted their accounts.
                                   <br></br>
                                   <br></br>
-                                </li>
-                                <li><font color="FF8000"><b>Your match-to-like ratio </b></font>
+                                <font color="FF8000"><b>Your match-to-like ratio </b></font>
                                   <br></br>
                                   Percentage of Hinge likes sent that end up with a match.
                                   <br></br>
                                   <br></br>
-                                </li>
-                                <li><font color="FF8000"><b>Your matches per day </b></font>
+                                <font color="FF8000"><b>Your matches per day </b></font>
                                   <br></br>
                                   <br></br>
-                                </li>
-                                <li><font color="FF8000"><b>Your received-to-sent match ratio </b></font>
+                                <font color="FF8000"><b>Your received-to-sent match ratio </b></font>
                                   <br></br>
                                   Percentage of Hinge matches from received likes compared to matches from
                                   sent likes
                                   <br></br>
                                   <br></br>
-                                </li>
-                                <li><font color="FF8000"><b>Accurate data from the Hinge community </b></font>
+                                <font color="FF8000"><b>Accurate data from the Hinge community </b></font>
                                   <br></br>
                                   See metrics of other Hinge users and discover trends not found
                                   anywhere else.
-                                </li>
                               </Typography>
                             </AccordionDetails>
                           </Accordion>
