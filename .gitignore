@@ -3,6 +3,7 @@ hinge_jeff
 
 # Folders
 /hinge_data
+/webapp/frontend/src/assets
 
 # Python
 *__pycache__*

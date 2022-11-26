@@ -1,11 +1,12 @@
-import '../css/upload.css';
+import '../../css/upload.css';
 import * as React from 'react';
 import Particles from "react-tsparticles";
-import particlesConfig from '../config/configParticles';
+import particlesConfig from '../../config/configParticles';
 import { loadFull } from "tsparticles";
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import Navbar from "../components/top_nav_bar";
+import Navbar from "../top_nav_bar";
+//import {CanvasJSChart} from 'canvasjs-react-charts'
 
 function Explore() {
 
@@ -35,8 +36,9 @@ function Explore() {
                         <div style={{display: 'flex'}}>
                             <div className="Header-description">
                                 <h1>Explore online dating statistics</h1>
-                                <p>Select the dating app you have data for. 
-                                Fill the form below to do a live search and find out.</p>
+                                <p>Select the dating app to discover more online dating statistics for.
+                                  Scroll down to do a custom search.
+                                </p>
                             </div>
                         </div>
                   </header>

@@ -8,7 +8,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import About from './components/about.js';
 import Upload from './components/upload.js';
 import HowToGet from './components/how_to_get.js';
-import Explore from './components/explore.js';
+import Explore from './components/explore/explore.js';
 
 ReactDOM.render(
   <React.StrictMode>

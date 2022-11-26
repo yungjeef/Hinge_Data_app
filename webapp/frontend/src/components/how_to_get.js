@@ -40,7 +40,6 @@ function HowToGet() {
                                 </p>
                             </div>
                         </div>
-                        
                   </header>
                 </div>
                 <HelpTabs/>
