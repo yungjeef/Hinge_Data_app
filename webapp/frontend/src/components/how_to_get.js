@@ -4,13 +4,10 @@ import Particles from "react-tsparticles";
 import particlesConfig from '../config/configParticles';
 import { loadFull } from "tsparticles";
 import { useCallback } from "react";
-import { useNavigate } from "react-router-dom";
 import Navbar from "../components/top_nav_bar";
-import UploadQueryForm from './upload_query_form';
+import HelpTabs from './how_to_get_tabs.js';
 
-function Upload() {
-
-    const navigate = useNavigate();
+function HowToGet() {
 
     const particlesInit = useCallback(async (engine) => {
       console.log(engine);
@@ -37,14 +34,16 @@ function Upload() {
                   <header className="App-header">
                         <div style={{display: 'flex'}}>
                             <div className="Header-description">
-                                <h1>Upload your data and discover your statistics</h1>
-                                <p>Select the dating app you have data for. 
-                                Fill the form below to do a live search and find out.</p>
+                                <h1>How to get your dating data?</h1>
+                                <p>Click on a Dating App tabs to see step by step instructions
+                                    on how to get your data.
+                                </p>
                             </div>
                         </div>
+                        
                   </header>
                 </div>
-                <UploadQueryForm/>
+                <HelpTabs/>
               </div>
         </div>
         
@@ -52,4 +51,4 @@ function Upload() {
   );
 }
 
-export default Upload;
+export default HowToGet;

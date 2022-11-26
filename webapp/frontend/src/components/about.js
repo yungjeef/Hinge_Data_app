@@ -105,8 +105,7 @@ function About() {
                             <img src={require('../images/creator.jpg')} style={{width: '500px', height:'auto'}}></img>
                             <p>Hey this is <span>Jeff</span>! I am a software engineer who enjoys 
                             working on coding projects in my free time. I wanted to build this website 
-                            to get some experience with React, Django, SQL, AWS and other 
-                            technologies. <pre></pre>
+                            to get some experience with full stack technologies. <pre></pre>
 
                             Having used dating apps myself and knowing many people who also use it, 
                             we were always slightly curious about how we did on these apps compared to

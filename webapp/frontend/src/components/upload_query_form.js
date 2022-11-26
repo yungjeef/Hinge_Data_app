@@ -25,8 +25,12 @@ export default function UploadQueryForm() {
         return false;
     }
 
+    // ==================================
+    // The required section
+    // ==================================
+
     // Dating app choice
-    const [dating_app, setDatingApp] = React.useState('');
+    const [dating_app, setDatingApp] = React.useState(null);
     const handleDatingAppSelection = (event) => {
         setDatingApp(event.target.value);
     };
@@ -34,151 +38,82 @@ export default function UploadQueryForm() {
     let dating_app_input;
     if(dating_app == 0) {
         dating_app_input = 
-            <p>Hello world</p>
+            <h2>Please upload <span>matches.json</span> from your Hinge data export</h2>
     }
 
-    // Dating app statistic metric
-    const [metric, setMetric] = React.useState('');
-    const handleMetric = (event) => {
-        setMetric(event.target.value);
+    // File upload
+    const [file, setFile] = React.useState(null);
+    const handleFile = (event) => {
+        setFile(event.target.files[0]);
     };
 
-    // Total match number
-    const [total_matches, setTotalMatches] = React.useState('');
-    const handleTotalMatches = (event) => {
-        const new_total_matches = Number(event.target.value);
-
-        // Total matches can't be negative or a decimal
-        if(new_total_matches < 0 || !checkNumber(new_total_matches)) {
-            const total_matches_input = document.getElementById('total-matches-input');
-            total_matches_input.value = '';
-        }
-        setTotalMatches(event.target.value);
-    };
-
-    // Match to Like ratio
-    const [swipe_ratio, setSwipeRatio] = React.useState('');
-    const handleSwipeRatio = (event) => {
-        const new_swipe_ratio = Number(event.target.value);
-
-        // Impossible for Match ratio to be above 1
-        if(new_swipe_ratio > 1 || new_swipe_ratio < 0) {
-            const ratio_input = document.getElementById('ratio-input');
-            ratio_input.value = '';
-        }
-        setSwipeRatio(event.target.value);
-    };
-
-    // Match per day
-    const [match_per_day, setMatchPerDay] = React.useState('');
-    const handleMatchPerDay = (event) => {
-        const new_match_rate = Number(event.target.value);
-
-        // Match rate can't be negative
-        if(new_match_rate < 0) {
-            const match_day_input = document.getElementById('match-day-input');
-            match_day_input.value = '';
-        }
-        setMatchPerDay(event.target.value);
-    };
-
-    // Min age
-    const [min_age, setMinAge] = React.useState('');
-    const handleMinAge = (event) => {
+    // Age
+    const [age, setAge] = React.useState(null);
+    const handleAge = (event) => {
         const new_age = Number(event.target.value);
 
         // Age can't be negative or decimal
-        if(new_age < 0 || !checkNumber(new_age)) {
-            const min_age_input = document.getElementById('min-age-input');
-            min_age_input.value = '';
+        if(new_age < 0 || !checkNumber(new_age) || new_age > 90) {
+            const age_input = document.getElementById('age-input');
+            age_input.value = '';
         }
-        setMinAge(event.target.value);
+        setAge(event.target.value);
     };
 
-    // Max age
-    const [max_age, setMaxAge] = React.useState('');
-    const handleMaxAge = (event) => {
-        const new_age = Number(event.target.value);
-
-        // Age can't be negative or decimal
-        if(new_age < 0 || !checkNumber(new_age)) {
-            const max_age_input = document.getElementById('max-age-input');
-            max_age_input.value = '';
-        }
-
-        setMaxAge(event.target.value);
-    };
-
-    // Min feet
-    const [min_feet, setMinFeet] = React.useState('');
-    const handleMinFeet = (event) => {
+    // Feet
+    const [feet, setFeet] = React.useState('');
+    const handleFeet = (event) => {
         const new_min_feet = Number(event.target.value);
 
         // Height can't be negative or decimal
         if(new_min_feet < 0 || !checkNumber(new_min_feet) || new_min_feet > 8) {
-            const min_feet_input = document.getElementById('min-feet-input');
-            min_feet_input.value = '';
+            const feet_input = document.getElementById('feet-input');
+            feet_input.value = '';
         }
 
-        setMinFeet(event.target.value);
+        setFeet(event.target.value);
     };
 
-    // Min inches
-    const [min_inch, setMinInch] = React.useState('');
-    const handleMinInch = (event) => {
+    // Inches
+    const [inches, setInches] = React.useState('');
+    const handleInches = (event) => {
         const new_min_inch = Number(event.target.value);
 
         // Height can't be negative or decimal
         if(new_min_inch < 0 || !checkNumber(new_min_inch) || new_min_inch > 11) {
-            const min_inch_input = document.getElementById('min-inch-input');
-            min_inch_input.value = '';
+            const inch_input = document.getElementById('inch-input');
+            inch_input.value = '';
         }
-        setMinInch(event.target.value);
-    };
-
-    // Max feet
-    const [max_feet, setMaxFeet] = React.useState('');
-    const handleMaxFeet = (event) => {
-        const new_max_feet = Number(event.target.value);
-
-        // Height can't be negative or decimal
-        if(new_max_feet < 0 || !checkNumber(new_max_feet) || new_max_feet > 8) {
-            const max_feet_input = document.getElementById('max-feet-input');
-            max_feet_input.value = '';
-        }
-        setMaxFeet(event.target.value);
-    };
-
-    // Max inches
-    const [max_inch, setMaxInch] = React.useState('');
-    const handleMaxInch = (event) => {
-        const new_max_inch = Number(event.target.value);
-
-        // Height can't be negative or decimal
-        if(new_max_inch < 0 || !checkNumber(new_max_inch) || new_max_inch > 11) {
-            const max_inch_input = document.getElementById('max-inch-input');
-            max_inch_input.value = '';
-        }
-        setMaxInch(event.target.value);
+        setInches(event.target.value);
     };
 
     // Gender
-    const [gender, setGender] = React.useState('');
+    const [gender, setGender] = React.useState(null);
     const handleGender = (event) => {
         setGender(event.target.value);
     };
 
     // Orientation
-    const [orientation, setOrientation] = React.useState('');
+    const [orientation, setOrientation] = React.useState(null);
     const handleOrientation = (event) => {
         setOrientation(event.target.value);
     };
 
     // Ethnicity
-    const [ethnicity, setEthnicity] = React.useState('');
+    const [ethnicity, setEthnicity] = React.useState(null);
     const handleEthnicity = (event) => {
         setEthnicity(event.target.value);
     };
+
+    // ==================================
+    // End of the required section
+    // ==================================
+
+
+
+    // ==================================
+    // The optional section
+    // ==================================
 
     // Politics
     const [politics, setPolitics] = React.useState('');
@@ -198,7 +133,7 @@ export default function UploadQueryForm() {
         setEmployer(event.target.value);
     };
 
-    // Employer
+    // Job
     const [job, setJob] = React.useState('');
     const handleJob = (event) => {
         setJob(event.target.value);
@@ -237,59 +172,24 @@ export default function UploadQueryForm() {
     function generate_submission_form() {
         
         // Calculate height, convert to inches
-        let actual_min_height = 0;
-        let actual_max_height = 0;
+        let actual_height = 0;
 
-        if(min_feet != '') {
-            actual_min_height = Number(min_feet) * 12;
-            if(min_inch != '') {
-                actual_min_height = actual_min_height + Number(min_inch);
+        if(feet != '') {
+            actual_height = Number(feet) * 12;
+            if(inches != '') {
+                actual_height = actual_height + Number(inches);
             }
-        }
-
-        if(max_feet != '') {
-            actual_max_height = Number(max_feet) * 12;
-            if(max_inch != '') {
-                actual_max_height = actual_max_height + Number(max_inch);
-            }
-        }
-
-        if(actual_min_height > actual_max_height) {
-            let temp = actual_max_height;
-            actual_max_height = actual_min_height;
-            actual_min_height = temp;
-        }
-
-        // Determine if min age is greater than max age
-        let actual_min_age = 0;
-        let actual_max_age = 0;
-        if(min_age != '' && max_age != '') {
-            if(Number(min_age) > Number(max_age)) {
-                actual_max_age = Number(min_age);
-                actual_min_age = Number(max_age);
-            } else {
-                actual_min_age = Number(min_age);
-                actual_max_age = Number(max_age);
-            }
-        } else if(min_age != '') {
-            actual_min_age = Number(min_age);
-        } else if(max_age != '') {
-            actual_max_age = Number(max_age);
         }
 
         const submission_data = {
             'dating_app': dating_app,
-            'metric': metric,
-            'total_matches': total_matches,
-            'swipe_ratio': swipe_ratio,
-            'match_per_day': match_per_day,
-            'min_age': actual_min_age,
-            'max_age': actual_max_age,
-            'min_height': actual_min_height,
-            'max_height': actual_max_height,
+            'file': file,
             'gender': gender,
             'orientation': orientation,
             'ethnicity': ethnicity,
+            'age': age,
+            'height': actual_height,
+            'intention': goal,
             'politics': politics,
             'religion': religion,
             'employer': employer,
@@ -311,20 +211,28 @@ export default function UploadQueryForm() {
     function handleSubmit() {
         const submission_form = generate_submission_form();
 
-        if(submission_form.dating_app == "") {
+        console.log(submission_form);
+
+        if(submission_form.dating_app == null) {
             alert("Dating app needs to be specified.")
-        } else if(submission_form.metric == 1 && submission_form.swipe_ratio == "") {
-            alert("Match Ratio metric must be specified.");
-        } else if(submission_form.metric == 2 && submission_form.match_per_day == "") {
-            alert("Match per day metric must be specified.");
-        } else if(submission_form.metric == 0 && submission_form.total_matches == "") {
-            alert("Total matches metric must be specified.");
+        } else if(submission_form.file == null) {
+            alert("File was not uploaded.")
+        } else if(submission_form.gender == null) {
+            alert("Gender needs to be specified.")
+        } else if(submission_form.orientation == null) {
+            alert("Orientation needs to be specified.")
+        } else if(submission_form.height == 0) {
+            alert("Height needs to be specified.")
+        } else if(submission_form.ethnicity == null) {
+            alert("Ethnicity needs to be specified.")
+        } else if(submission_form.age == null) {
+            alert("Age needs to be specified.")
         } else {
             // Submit using Axios to backend
             console.log(submission_form);
             setSubmissionData(submission_form);
         }
-    }    
+    }
 
   return (
     <div className='query_form_body' style={{backgroundColor:"#282c34"}}>
@@ -351,191 +259,57 @@ export default function UploadQueryForm() {
             <div class='dating-app-select-subsection'>
                 {dating_app_input}
             </div>
+            <div class='dating-app-select-subsection'>
+                <Button variant="contained"
+                        color='secondary' 
+                        size='large'>
+                    <input type="file" 
+                        onChange={handleFile}
+                        accept=".json"/>
+                </Button>
+            </div>
         </div>
-      <br></br>
-      <br></br>
-      <h2>The attributes of fellow online daters</h2>
-      <p>Fill in as many or as little as you want. The queried group will be the pool you are compared to.</p>
-      <br></br>
-      <FormControl variant="standard" sx={{ m: 1, minWidth: 120, backgroundColor:"#282c34", width:"25%"}}>
-        <InputLabel id="demo-simple-select-standard-label" sx={{ color:"#FF8000"}}>Gender</InputLabel>
-        <Select
-          labelId="gender-select"
-          id="gender-select"
-          value={gender}
-          onChange={handleGender}
-          label="gender-select"
-          sx={{ color:"#00CC00"}}
-        >
-          <MenuItem value={"Male"}>Male</MenuItem>
-          <MenuItem value={"Female"}>Female</MenuItem>
-          <MenuItem value={"Other"}>Other</MenuItem>
-          <MenuItem value={""}><b>Unselect</b></MenuItem>
-        </Select>
-      </FormControl>
-      <br></br>
-      <br></br>
-      <FormControl variant="standard" sx={{ m: 1, minWidth: 120, backgroundColor:"#282c34", width:"25%"}}>
-        <InputLabel id="demo-simple-select-standard-label" sx={{ color:"#FF8000"}}>Orientation</InputLabel>
-        <Select
-          labelId="orientation-select"
-          id="orientation-select"
-          value={orientation}
-          onChange={handleOrientation}
-          label="orientation-select"
-          sx={{ color:"#00CC00"}}
-        >
-          <MenuItem value={"Straight"}>Straight</MenuItem>
-          <MenuItem value={"LGBT"}>LGBT</MenuItem>
-          <MenuItem value={""}><b>Unselect</b></MenuItem>
-        </Select>
-      </FormControl>
-      <br></br>
-      <br></br>
-      <FormControl variant="standard" sx={{ m: 1, minWidth: 120, backgroundColor:"#282c34", width:"25%"}}>
-        <InputLabel id="demo-simple-select-standard-label" sx={{ color:"#FF8000"}}>Dating Intention</InputLabel>
-        <Select
-          labelId="dating-goal-select"
-          id="dating-goal-select"
-          value={goal}
-          onChange={handleGoal}
-          label="dating-goal-select"
-          sx={{ color:"#00CC00"}}
-        >
-          <MenuItem value={"Marriage"}>Marriage</MenuItem>
-          <MenuItem value={"Long-term relationship"}>Long-term relationship</MenuItem>
-          <MenuItem value={"Hook up"}>Hook up</MenuItem>
-          <MenuItem value={"Figuring it out"}>Figuring it out</MenuItem>
-          <MenuItem value={""}><b>Unselect</b></MenuItem>
-        </Select>
-      </FormControl>
-      <br></br>
-      <br></br>
-      <br></br>
-      <div className='age_section'>
-        <div className='age_subsection_text'>
-            <p>Between the age(s) of </p>
-        </div>
-        <div className='age_subsection'>
-            <TextField
-                id="min-age-input"
-                label="Minimum Age"
-                type="number"
-                InputLabelProps={{
-                    shrink: true,
-                }}
-                sx={{
-                    label: {color: '#FF8000'},
-                    input: { color: '#00CC00' }
-                }}
-                value={min_age}
-                onChange={handleMinAge}
-            />
-        </div>
-        <div className='age_subsection_text_and'>
-            <p>and </p>
-        </div>
-        <div className='age_subsection'>
-            <TextField
-                id="max-age-input"
-                label="Maximum Age"
-                type="number"
-                InputLabelProps={{
-                    shrink: true,
-                }}
-                sx={{
-                    label: {color: '#FF8000'},
-                    input: { color: '#00CC00' }
-                }}
-                value={max_age}
-                onChange={handleMaxAge}
-            />
-        </div>
-        <div className='age_subsection_filler'></div>
-      </div>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <div className='height_section'>
-        <div className='height_subsection_text'>
-            <p>Between the height of </p>
-        </div>
-        <div className='height_subsection'>
-            <TextField
-                id="min-feet-input"
-                label="Feet"
-                type="number"
-                InputLabelProps={{
-                    shrink: true,
-                }}
-                sx={{
-                    label: {color: '#FF8000'},
-                    input: { color: '#00CC00' }
-                }}
-                value={min_feet}
-                onChange={handleMinFeet}
-            />
-        </div>
-        <div className='height_subsection'>
-            <TextField
-                id="min-inch-input"
-                label="Inches"
-                type="number"
-                InputLabelProps={{
-                    shrink: true,
-                }}
-                sx={{
-                    label: {color: '#FF8000'},
-                    input: { color: '#00CC00' }
-                }}
-                value={min_inch}
-                onChange={handleMinInch}
-            />
-        </div>
-        <div className='height_subsection_text_and'>
-            <p>and </p>
-        </div>
-        <div className='height_subsection'>
-            <TextField
-                id="max-feet-input"
-                label="Feet"
-                type="number"
-                InputLabelProps={{
-                    shrink: true,
-                }}
-                sx={{
-                    label: {color: '#FF8000'},
-                    input: { color: '#00CC00' }
-                }}
-                value={max_feet}
-                onChange={handleMaxFeet}
-            />
-        </div>
-        <div className='height_subsection'>
-            <TextField
-                id="max-inch-input"
-                label="Inches"
-                type="number"
-                InputLabelProps={{
-                    shrink: true,
-                }}
-                sx={{
-                    label: {color: '#FF8000'},
-                    input: { color: '#00CC00' }
-                }}
-                value={max_inch}
-                onChange={handleMaxInch}
-            />
-        </div>
-        <div className='height_subsection_filler'></div>
-      </div>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <div className='remaining_sections'>
+        <br></br>
+        <br></br>
+        <h2>Your attributes</h2>
+        <h3>Please fill out these five boxes below.</h3>
+        <FormControl 
+            variant="standard" 
+            sx={{ m: 1, minWidth: 120, backgroundColor:"#282c34", width:"25%"}}>
+            <InputLabel id="demo-simple-select-standard-label" sx={{ color:"#FF8000"}}>Gender</InputLabel>
+            <Select
+            labelId="gender-select"
+            id="gender-select"
+            value={gender}
+            onChange={handleGender}
+            label="gender-select"
+            sx={{ color:"#00CC00"}}
+            >
+            <MenuItem value={"Male"}>Male</MenuItem>
+            <MenuItem value={"Female"}>Female</MenuItem>
+            <MenuItem value={"Other"}>Other</MenuItem>
+            <MenuItem value={""}><b>Unselect</b></MenuItem>
+            </Select>
+        </FormControl>
+        <br></br>
+        <br></br>
+        <FormControl variant="standard" sx={{ m: 1, minWidth: 120, backgroundColor:"#282c34", width:"25%"}}>
+            <InputLabel id="demo-simple-select-standard-label" sx={{ color:"#FF8000"}}>Orientation</InputLabel>
+            <Select
+            labelId="orientation-select"
+            id="orientation-select"
+            value={orientation}
+            onChange={handleOrientation}
+            label="orientation-select"
+            sx={{ color:"#00CC00"}}
+            >
+            <MenuItem value={"Straight"}>Straight</MenuItem>
+            <MenuItem value={"LGBT"}>LGBT</MenuItem>
+            <MenuItem value={""}><b>Unselect</b></MenuItem>
+            </Select>
+        </FormControl>
+        <br></br>
+        <br></br>
         <FormControl variant="standard" sx={{ m: 1, minWidth: 120, backgroundColor:"#282c34", width:"25%"}}>
             <InputLabel id="demo-simple-select-standard-label" sx={{ color:"#FF8000"}}>Ethnicity</InputLabel>
             <Select
@@ -559,158 +333,247 @@ export default function UploadQueryForm() {
                 <MenuItem value={""}><b>Unselect</b></MenuItem>
             </Select>
         </FormControl>
-        <FormControl variant="standard" sx={{ m: 1, minWidth: 120, backgroundColor:"#282c34", width:"25%"}}>
-            <InputLabel id="demo-simple-select-standard-label" sx={{ color:"#FF8000"}}>Political Views</InputLabel>
-            <Select
-                labelId="politics-select"
-                id="politics-select"
-                value={politics}
-                onChange={handlePolitics}
-                label="politics-select"
-                sx={{ color:"#00CC00"}}
-                >
-                <MenuItem value={"Liberal"}>Liberal</MenuItem>
-                <MenuItem value={"Moderate"}>Moderate</MenuItem>
-                <MenuItem value={"Conservative"}>Conservative</MenuItem>
-                <MenuItem value={"Not Political"}>Not Political</MenuItem>
-                <MenuItem value={"Other"}>Other</MenuItem>
-                <MenuItem value={""}><b>Unselect</b></MenuItem>
-            </Select>
-        </FormControl>
-        <FormControl variant="standard" sx={{ m: 1, minWidth: 120, backgroundColor:"#282c34", width:"25%"}}>
-            <InputLabel id="demo-simple-select-standard-label" sx={{ color:"#FF8000"}}>Religion</InputLabel>
-            <Select
-                labelId="religion-select"
-                id="religion-select"
-                value={religion}
-                onChange={handleReligion}
-                label="religion-select"
-                sx={{ color:"#00CC00"}}
-                >
-                <MenuItem value={"Agnostic"}>Agnostic</MenuItem>
-                <MenuItem value={"Atheist"}>Atheist</MenuItem>
-                <MenuItem value={"Buddhist"}>Buddhist</MenuItem>
-                <MenuItem value={"Catholic"}>Catholic</MenuItem>
-                <MenuItem value={"Christian"}>Christian</MenuItem>
-                <MenuItem value={"Hindu"}>Hindu</MenuItem>
-                <MenuItem value={"Jewish"}>Jewish</MenuItem>
-                <MenuItem value={"Muslim"}>Muslim</MenuItem>
-                <MenuItem value={"Sikh"}>Sikh</MenuItem>
-                <MenuItem value={"Spiritual"}>Spiritual</MenuItem>
-                <MenuItem value={"Other"}>Other</MenuItem>
-                <MenuItem value={""}><b>Unselect</b></MenuItem>
-            </Select>
-        </FormControl>
-        <FormControl variant="standard" sx={{ m: 1, minWidth: 120, backgroundColor:"#282c34", width:"25%"}}>
-            <InputLabel id="demo-simple-select-standard-label" sx={{ color:"#FF8000"}}>Education Level</InputLabel>
-            <Select
-                labelId="education-level-select"
-                id="education-level-select"
-                value={education_level}
-                onChange={handleEducationLevel}
-                label="education-level-select"
-                sx={{ color:"#00CC00"}}
-                >
-                <MenuItem value={"High School"}>High School</MenuItem>
-                <MenuItem value={"Undergrad"}>Undergrad</MenuItem>
-                <MenuItem value={"Postgrad"}>Postgrad</MenuItem>
-                <MenuItem value={""}><b>Unselect</b></MenuItem>
-            </Select>
-        </FormControl>
-        <FormControl variant="standard" sx={{ m: 1, minWidth: 120, backgroundColor:"#282c34", width:"25%"}}>
-            <InputLabel id="demo-simple-select-standard-label" sx={{ color:"#FF8000"}}>School</InputLabel>
-            <Select
-                labelId="school-select"
-                id="school-select"
-                value={school}
-                onChange={handleSchool}
-                label="school-select"
-                sx={{ color:"#00CC00"}}
-                >
-                <MenuItem value={"UNC Chapel Hill"}>UNC Chapel Hill</MenuItem>
-                <MenuItem value={"NC State"}>NC State</MenuItem>
-                <MenuItem value={"UC Berkeley"}>UC Berkeley</MenuItem>
-                <MenuItem value={""}><b>Unselect</b></MenuItem>
-            </Select>
-        </FormControl>
-        <FormControl variant="standard" sx={{ m: 1, minWidth: 120, backgroundColor:"#282c34", width:"25%"}}>
-            <InputLabel id="demo-simple-select-standard-label" sx={{ color:"#FF8000"}}>Employer</InputLabel>
-            <Select
-                labelId="employer-select"
-                id="employer-select"
-                value={employer}
-                onChange={handleEmployer}
-                label="employer-select"
-                sx={{ color:"#00CC00"}}
-                >
-                <MenuItem value={"Google"}>Google</MenuItem>
-                <MenuItem value={"Delta Force"}>Delta Force</MenuItem>
-                <MenuItem value={""}><b>Unselect</b></MenuItem>
-            </Select>
-        </FormControl>
-        <FormControl variant="standard" sx={{ m: 1, minWidth: 120, backgroundColor:"#282c34", width:"25%"}}>
-            <InputLabel id="demo-simple-select-standard-label" sx={{ color:"#FF8000"}}>Job</InputLabel>
-            <Select
-                labelId="job-select"
-                id="job-select"
-                value={job}
-                onChange={handleJob}
-                label="job-select"
-                sx={{ color:"#00CC00"}}
-                >
-                <MenuItem value={"Engineer"}>Engineer</MenuItem>
-                <MenuItem value={"Consultant"}>Consultant</MenuItem>
-                <MenuItem value={""}><b>Unselect</b></MenuItem>
-            </Select>
-        </FormControl>
-        <FormControl variant="standard" sx={{ m: 1, minWidth: 120, backgroundColor:"#282c34", width:"25%"}}>
-            <InputLabel id="demo-simple-select-standard-label" sx={{ color:"#FF8000"}}>Location</InputLabel>
-            <Select
-                labelId="location-select"
-                id="location-select"
-                value={location}
-                onChange={handleLocation}
-                label="location-select"
-                sx={{ color:"#00CC00"}}
-                >
-                <MenuItem value={"Los Angeles, CA"}>Los Angeles, CA</MenuItem>
-                <MenuItem value={"Bay Area, CA"}>Bay Area, CA</MenuItem>
-                <MenuItem value={"Raleigh, NC"}>Raleigh, NC</MenuItem>
-                <MenuItem value={""}><b>Unselect</b></MenuItem>
-            </Select>
-        </FormControl>
-        <FormControl variant="standard" sx={{ m: 1, minWidth: 120, backgroundColor:"#282c34", width:"25%"}}>
-            <InputLabel id="demo-simple-select-standard-label" sx={{ color:"#FF8000"}}>Do you lift bro?</InputLabel>
-            <Select
-                labelId="workout-select"
-                id="workout-select"
-                value={workout}
-                onChange={handleWorkout}
-                label="workout-select"
-                sx={{ color:"#00CC00"}}
-                >
-                <MenuItem value={"Never works out"}>Never</MenuItem>
-                <MenuItem value={"Occasionally works out"}>Occasionally</MenuItem>
-                <MenuItem value={"Average works out"}>So so</MenuItem>
-                <MenuItem value={"Frequently works out"}>Frequently</MenuItem>
-                <MenuItem value={"Definitely juices"}>Bro are you juicing?</MenuItem>
-                <MenuItem value={""}><b>Unselect</b></MenuItem>
-            </Select>
-        </FormControl>
+        <br></br>
+        <br></br>
+        <br></br>
+        <div className='age_section'>
+            <div className='age_subsection'>
+                <TextField
+                    id="age-input"
+                    label="Age"
+                    type="number"
+                    InputLabelProps={{
+                        shrink: true,
+                    }}
+                    sx={{
+                        label: {color: '#FF8000'},
+                        input: { color: '#00CC00' }
+                    }}
+                    value={age}
+                    onChange={handleAge}
+                />
+            </div>
+        </div>
         <br></br>
         <br></br>
         <br></br>
         <br></br>
+        <div className='height_section'>
+            <div className='height_subsection_text'>
+                <p><span>Height</span></p>
+            </div>
+            <br></br>
+            <br></br>
+            <br></br>
+            <div className='height_subsection'>
+                <TextField
+                    id="feet-input"
+                    label="Feet"
+                    type="number"
+                    InputLabelProps={{
+                        shrink: true,
+                    }}
+                    sx={{
+                        label: {color: '#FF8000'},
+                        input: { color: '#00CC00' }
+                    }}
+                    value={feet}
+                    onChange={handleFeet}
+                />
+            </div>
+            <div className='height_subsection'>
+                <TextField
+                    id="inch-input"
+                    label="Inches"
+                    type="number"
+                    InputLabelProps={{
+                        shrink: true,
+                    }}
+                    sx={{
+                        label: {color: '#FF8000'},
+                        input: { color: '#00CC00' }
+                    }}
+                    value={inches}
+                    onChange={handleInches}
+                />
+            </div>
+            <div className='height_subsection_filler'></div>
+        </div>
         <br></br>
-        <Button 
-            variant="contained"
-            color='secondary' 
-            size='large' 
-            onClick={handleSubmit}
-            >
-                Play Around and Find Out
-        </Button>
-      </div>
+        <br></br>
+        <br></br>
+        <br></br>
+        <div className='remaining_sections'>
+            <h3>For the rest of these, fill in as many or as little as you want.</h3>
+            <FormControl variant="standard" sx={{ m: 1, minWidth: 120, backgroundColor:"#282c34", width:"25%"}}>
+                <InputLabel id="demo-simple-select-standard-label" sx={{ color:"#FF8000"}}>Dating Intention</InputLabel>
+                <Select
+                    labelId="dating-goal-select"
+                    id="dating-goal-select"
+                    value={goal}
+                    onChange={handleGoal}
+                    label="dating-goal-select"
+                    sx={{ color:"#00CC00"}}
+                    >
+                    <MenuItem value={"Marriage"}>Marriage</MenuItem>
+                    <MenuItem value={"Long-term relationship"}>Long-term relationship</MenuItem>
+                    <MenuItem value={"Hook up"}>Hook up</MenuItem>
+                    <MenuItem value={"Figuring it out"}>Figuring it out</MenuItem>
+                    <MenuItem value={""}><b>Unselect</b></MenuItem>
+                </Select>
+            </FormControl>
+                <FormControl variant="standard" sx={{ m: 1, minWidth: 120, backgroundColor:"#282c34", width:"25%"}}>
+                    <InputLabel id="demo-simple-select-standard-label" sx={{ color:"#FF8000"}}>Political Views</InputLabel>
+                    <Select
+                        labelId="politics-select"
+                        id="politics-select"
+                        value={politics}
+                        onChange={handlePolitics}
+                        label="politics-select"
+                        sx={{ color:"#00CC00"}}
+                        >
+                        <MenuItem value={"Liberal"}>Liberal</MenuItem>
+                        <MenuItem value={"Moderate"}>Moderate</MenuItem>
+                        <MenuItem value={"Conservative"}>Conservative</MenuItem>
+                        <MenuItem value={"Not Political"}>Not Political</MenuItem>
+                        <MenuItem value={"Other"}>Other</MenuItem>
+                        <MenuItem value={""}><b>Unselect</b></MenuItem>
+                    </Select>
+            </FormControl>
+            <FormControl variant="standard" sx={{ m: 1, minWidth: 120, backgroundColor:"#282c34", width:"25%"}}>
+                <InputLabel id="demo-simple-select-standard-label" sx={{ color:"#FF8000"}}>Religion</InputLabel>
+                <Select
+                    labelId="religion-select"
+                    id="religion-select"
+                    value={religion}
+                    onChange={handleReligion}
+                    label="religion-select"
+                    sx={{ color:"#00CC00"}}
+                    >
+                    <MenuItem value={"Agnostic"}>Agnostic</MenuItem>
+                    <MenuItem value={"Atheist"}>Atheist</MenuItem>
+                    <MenuItem value={"Buddhist"}>Buddhist</MenuItem>
+                    <MenuItem value={"Catholic"}>Catholic</MenuItem>
+                    <MenuItem value={"Christian"}>Christian</MenuItem>
+                    <MenuItem value={"Hindu"}>Hindu</MenuItem>
+                    <MenuItem value={"Jewish"}>Jewish</MenuItem>
+                    <MenuItem value={"Muslim"}>Muslim</MenuItem>
+                    <MenuItem value={"Sikh"}>Sikh</MenuItem>
+                    <MenuItem value={"Spiritual"}>Spiritual</MenuItem>
+                    <MenuItem value={"Other"}>Other</MenuItem>
+                    <MenuItem value={""}><b>Unselect</b></MenuItem>
+                </Select>
+            </FormControl>
+            <FormControl variant="standard" sx={{ m: 1, minWidth: 120, backgroundColor:"#282c34", width:"25%"}}>
+                <InputLabel id="demo-simple-select-standard-label" sx={{ color:"#FF8000"}}>Education Level</InputLabel>
+                <Select
+                    labelId="education-level-select"
+                    id="education-level-select"
+                    value={education_level}
+                    onChange={handleEducationLevel}
+                    label="education-level-select"
+                    sx={{ color:"#00CC00"}}
+                    >
+                    <MenuItem value={"High School"}>High School</MenuItem>
+                    <MenuItem value={"Undergrad"}>Undergrad</MenuItem>
+                    <MenuItem value={"Postgrad"}>Postgrad</MenuItem>
+                    <MenuItem value={""}><b>Unselect</b></MenuItem>
+                </Select>
+            </FormControl>
+            <FormControl variant="standard" sx={{ m: 1, minWidth: 120, backgroundColor:"#282c34", width:"25%"}}>
+                <InputLabel id="demo-simple-select-standard-label" sx={{ color:"#FF8000"}}>School</InputLabel>
+                <Select
+                    labelId="school-select"
+                    id="school-select"
+                    value={school}
+                    onChange={handleSchool}
+                    label="school-select"
+                    sx={{ color:"#00CC00"}}
+                    >
+                    <MenuItem value={"UNC Chapel Hill"}>UNC Chapel Hill</MenuItem>
+                    <MenuItem value={"NC State"}>NC State</MenuItem>
+                    <MenuItem value={"UC Berkeley"}>UC Berkeley</MenuItem>
+                    <MenuItem value={""}><b>Unselect</b></MenuItem>
+                </Select>
+            </FormControl>
+            <FormControl variant="standard" sx={{ m: 1, minWidth: 120, backgroundColor:"#282c34", width:"25%"}}>
+                <InputLabel id="demo-simple-select-standard-label" sx={{ color:"#FF8000"}}>Employer</InputLabel>
+                <Select
+                    labelId="employer-select"
+                    id="employer-select"
+                    value={employer}
+                    onChange={handleEmployer}
+                    label="employer-select"
+                    sx={{ color:"#00CC00"}}
+                    >
+                    <MenuItem value={"Google"}>Google</MenuItem>
+                    <MenuItem value={"Delta Force"}>Delta Force</MenuItem>
+                    <MenuItem value={""}><b>Unselect</b></MenuItem>
+                </Select>
+            </FormControl>
+            <FormControl variant="standard" sx={{ m: 1, minWidth: 120, backgroundColor:"#282c34", width:"25%"}}>
+                <InputLabel id="demo-simple-select-standard-label" sx={{ color:"#FF8000"}}>Job</InputLabel>
+                <Select
+                    labelId="job-select"
+                    id="job-select"
+                    value={job}
+                    onChange={handleJob}
+                    label="job-select"
+                    sx={{ color:"#00CC00"}}
+                    >
+                    <MenuItem value={"Engineer"}>Engineer</MenuItem>
+                    <MenuItem value={"Consultant"}>Consultant</MenuItem>
+                    <MenuItem value={""}><b>Unselect</b></MenuItem>
+                </Select>
+            </FormControl>
+            <FormControl variant="standard" sx={{ m: 1, minWidth: 120, backgroundColor:"#282c34", width:"25%"}}>
+                <InputLabel id="demo-simple-select-standard-label" sx={{ color:"#FF8000"}}>Location</InputLabel>
+                <Select
+                    labelId="location-select"
+                    id="location-select"
+                    value={location}
+                    onChange={handleLocation}
+                    label="location-select"
+                    sx={{ color:"#00CC00"}}
+                    >
+                    <MenuItem value={"Los Angeles, CA"}>Los Angeles, CA</MenuItem>
+                    <MenuItem value={"Bay Area, CA"}>Bay Area, CA</MenuItem>
+                    <MenuItem value={"Raleigh, NC"}>Raleigh, NC</MenuItem>
+                    <MenuItem value={""}><b>Unselect</b></MenuItem>
+                </Select>
+            </FormControl>
+            <FormControl variant="standard" sx={{ m: 1, minWidth: 120, backgroundColor:"#282c34", width:"25%"}}>
+                <InputLabel id="demo-simple-select-standard-label" sx={{ color:"#FF8000"}}>Do you lift bro?</InputLabel>
+                <Select
+                    labelId="workout-select"
+                    id="workout-select"
+                    value={workout}
+                    onChange={handleWorkout}
+                    label="workout-select"
+                    sx={{ color:"#00CC00"}}
+                    >
+                    <MenuItem value={"Never works out"}>Never</MenuItem>
+                    <MenuItem value={"Occasionally works out"}>Occasionally</MenuItem>
+                    <MenuItem value={"Average works out"}>So so</MenuItem>
+                    <MenuItem value={"Frequently works out"}>Frequently</MenuItem>
+                    <MenuItem value={"Definitely juices"}>Bro are you juicing?</MenuItem>
+                    <MenuItem value={""}><b>Unselect</b></MenuItem>
+                </Select>
+            </FormControl>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+            <Button 
+                variant="contained"
+                color='secondary' 
+                size='large' 
+                onClick={handleSubmit}
+                >
+                    Play Around and Find Out
+            </Button>
+        </div>
         <br></br>
         <br></br>
         <br></br>

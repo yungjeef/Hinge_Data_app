@@ -424,7 +424,7 @@ export default function SelectVariants() {
       <br></br>
       <br></br>
       <h2>The attributes of fellow online daters</h2>
-      <p>Fill in as many or as little as you want. The queried group will be the pool you are compared to.</p>
+      <h3>Fill in as many or as little as you want. The queried group will be the pool you are compared to.</h3>
       <br></br>
       <FormControl variant="standard" sx={{ m: 1, minWidth: 120, backgroundColor:"#282c34", width:"25%"}}>
         <InputLabel id="demo-simple-select-standard-label" sx={{ color:"#FF8000"}}>Gender</InputLabel>

@@ -6,11 +6,8 @@ import { loadFull } from "tsparticles";
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/top_nav_bar";
-import UploadQueryForm from './upload_query_form';
 
-function Upload() {
-
-    const navigate = useNavigate();
+function Explore() {
 
     const particlesInit = useCallback(async (engine) => {
       console.log(engine);
@@ -37,14 +34,14 @@ function Upload() {
                   <header className="App-header">
                         <div style={{display: 'flex'}}>
                             <div className="Header-description">
-                                <h1>Upload your data and discover your statistics</h1>
+                                <h1>Explore online dating statistics</h1>
                                 <p>Select the dating app you have data for. 
                                 Fill the form below to do a live search and find out.</p>
                             </div>
                         </div>
                   </header>
                 </div>
-                <UploadQueryForm/>
+
               </div>
         </div>
         
@@ -52,4 +49,4 @@ function Upload() {
   );
 }
 
-export default Upload;
+export default Explore;
