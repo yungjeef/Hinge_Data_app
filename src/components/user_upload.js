@@ -1,22 +1,10 @@
 import '../App.css';
 import * as React from 'react';
-import Particles from "react-tsparticles";
-import particlesConfig from '../config/configParticles';
-import { loadFull } from "tsparticles";
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 
 
 function UserPage() {
-
-    const particlesInit = useCallback(async (engine) => {
-      console.log(engine);
-        await loadFull(engine);
-    }, []);
-
-    const particlesLoaded = useCallback(async (container) => {
-        await console.log(container);
-    }, []);
 
     const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -36,13 +24,6 @@ function UserPage() {
         <div className='app'>
               <div id="welcome-page">
                 <div className="welcome-page" style={{ position: 'relative', overflow: "hidden" }}>
-                  
-                  <Particles
-                    id="tsparticles"
-                    init={particlesInit}
-                    loaded={particlesLoaded}
-                    options={particlesConfig}
-                  />
                   <header className="App-header">
                     <div style={{display: 'flex'}}>
                       <div className="Header-description">

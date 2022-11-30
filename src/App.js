@@ -1,12 +1,5 @@
-import logo from './logo.svg';
 import './App.css';
 import * as React from 'react';
-import Particles from "react-tsparticles";
-import particlesConfig from './config/configParticles';
-import { loadFull } from "tsparticles";
-import { useCallback } from "react";
-import Button from '@mui/material/Button';
-import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
 import FormSelect from './components/query_form.js'
 //import ResponsiveAppBar from './components/top_nav_bar.js'
@@ -23,27 +16,12 @@ function App() {
 
     const navigate = useNavigate();
 
-    const particlesInit = useCallback(async (engine) => {
-      console.log(engine);
-        await loadFull(engine);
-    }, []);
-
-    const particlesLoaded = useCallback(async (container) => {
-        await console.log(container);
-    }, []);
-
     return (
       <React.Fragment>
         <div className='app'>
               <div id="welcome-page">
                 <div className="welcome-page" style={{ position: 'relative', overflow: "hidden" }}>
                   
-                  <Particles
-                    id="tsparticles"
-                    init={particlesInit}
-                    loaded={particlesLoaded}
-                    options={particlesConfig}
-                  />
                   <Navbar/>
                   <header className="App-header">
                     <div style={{display: 'flex'}}>
@@ -125,6 +103,7 @@ function App() {
                 </div>
                 <FormSelect/>
               </div>
+              
         </div>
         
       </React.Fragment>
